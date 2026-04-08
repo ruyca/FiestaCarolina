@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¡Cumple Caro en San Miguel de Allende!</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--gold:#F5C518;--gold-light:#FFF3B0;--gold-dark:#D4A800;
+--cream:#FFF9E6;--black:#1A1A1A;--charcoal:#2D2D2D;
+--warm-gray:#6B6560;--blush:#FFEFD5;--wine:#8B2252;
+}
+html{scroll-behavior:smooth;scroll-snap-type:y mandatory}
+body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--cream);overflow-x:hidden}
+
+/* ===== SCROLL SECTIONS ===== */
+.section{min-height:100vh;scroll-snap-align:start;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px}
+
+/* ===== HERO ===== */
+.hero{background:var(--black);color:#fff;overflow:hidden;padding:0}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1a1a1a 0%,#2d2020 50%,#1a1a1a 100%)}
+.hero-particles{position:absolute;inset:0;overflow:hidden}
+.particle{position:absolute;width:4px;height:4px;background:var(--gold);border-radius:50%;opacity:0;animation:float-up 6s infinite}
+@keyframes float-up{0%{transform:translateY(100vh) scale(0);opacity:0}20%{opacity:1}80%{opacity:.6}100%{transform:translateY(-20vh) scale(1.5);opacity:0}}
+.hero-content{position:relative;z-index:2;text-align:center;padding:40px 24px;max-width:700px}
+.photo-frame{width:220px;height:220px;border-radius:50%;border:4px solid var(--gold);overflow:hidden;margin:0 auto 32px;box-shadow:0 0 60px rgba(245,197,24,.3);animation:glow-pulse 3s ease-in-out infinite}
+@keyframes glow-pulse{0%,100%{box-shadow:0 0 40px rgba(245,197,24,.2)}50%{box-shadow:0 0 80px rgba(245,197,24,.5)}}
+.photo-frame img{width:100%;height:100%;object-fit:cover}
+.hero-tag{font-family:'DM Sans',sans-serif;font-weight:600;letter-spacing:4px;text-transform:uppercase;font-size:13px;color:var(--gold);margin-bottom:12px;opacity:0;animation:fade-in .8s .3s forwards}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(36px,7vw,72px);font-weight:900;line-height:1.05;margin-bottom:16px;opacity:0;animation:slide-up .8s .5s forwards}
+.hero-title span{color:var(--gold);display:block;font-style:italic}
+.hero-subtitle{font-size:18px;color:#ccc;font-weight:300;margin-bottom:8px;opacity:0;animation:fade-in .8s .8s forwards}
+.hero-dates{font-family:'Playfair Display',serif;font-size:22px;color:var(--gold-light);font-weight:700;opacity:0;animation:slide-up .8s 1s forwards;margin-bottom:32px}
+.scroll-hint{opacity:0;animation:fade-in 1s 1.5s forwards}
+.scroll-hint span{display:block;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.scroll-arrow{width:24px;height:24px;border-right:2px solid var(--gold);border-bottom:2px solid var(--gold);transform:rotate(45deg);margin:0 auto;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:rotate(45deg) translateY(0)}50%{transform:rotate(45deg) translateY(8px)}}
+@keyframes fade-in{to{opacity:1}}
+@keyframes slide-up{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== DAY SECTIONS ===== */
+.day-section{background:var(--cream);padding:80px 24px}
+.day-header{text-align:center;margin-bottom:48px}
+.day-label{font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--gold-dark);margin-bottom:8px}
+.day-title{font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,48px);font-weight:900;color:var(--black)}
+.day-title span{color:var(--wine)}
+.day-subtitle{font-size:15px;color:var(--warm-gray);margin-top:8px;font-weight:300}
+
+/* Timeline */
+.timeline{max-width:680px;width:100%;margin:0 auto;position:relative}
+.timeline::before{content:'';position:absolute;left:20px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--gold),var(--gold-dark))}
+.tl-item{position:relative;padding-left:56px;margin-bottom:36px;opacity:0;transform:translateY(30px);transition:all .6s cubic-bezier(.16,1,.3,1)}
+.tl-item.visible{opacity:1;transform:translateY(0)}
+.tl-dot{position:absolute;left:12px;top:4px;width:18px;height:18px;border-radius:50%;background:var(--gold);border:3px solid var(--cream);z-index:1;box-shadow:0 0 0 2px var(--gold)}
+.tl-time{font-weight:700;font-size:13px;color:var(--gold-dark);letter-spacing:1px;margin-bottom:4px}
+.tl-card{background:#fff;border-radius:16px;padding:20px 24px;box-shadow:0 4px 20px rgba(0,0,0,.06);border:1px solid rgba(245,197,24,.15);transition:transform .3s,box-shadow .3s}
+.tl-card:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.1)}
+.tl-card h3{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.tl-card h3 a{color:inherit;text-decoration:none;border-bottom:1.5px dashed var(--gold);transition:border-color .3s,color .3s}
+.tl-card h3 a:hover{color:var(--wine);border-bottom-color:var(--wine)}
+.tl-card h3 .emoji{font-size:22px}
+.tl-card .rating{font-size:12px;color:var(--gold-dark);font-weight:600}
+.tl-card p{font-size:14px;color:var(--warm-gray);line-height:1.6;margin-top:6px}
+.tl-card .price{display:inline-block;margin-top:8px;font-weight:700;font-size:14px;color:var(--wine);background:var(--blush);padding:4px 12px;border-radius:20px}
+.tl-card .tip{margin-top:10px;font-size:13px;color:var(--gold-dark);font-style:italic;padding:8px 12px;background:var(--gold-light);border-radius:8px;border-left:3px solid var(--gold)}
+
+/* ===== DAY 2 BIRTHDAY ===== */
+.birthday-section{background:linear-gradient(180deg,var(--cream) 0%,#FFF3B0 50%,var(--cream) 100%)}
+.birthday-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--black);padding:8px 20px;border-radius:30px;font-weight:700;font-size:14px;margin-bottom:16px;animation:badge-pop 1s ease-out}
+@keyframes badge-pop{0%{transform:scale(0)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
+
+/* ===== DAY 3 ===== */
+.day3-section{background:linear-gradient(180deg,var(--cream) 0%,#E8F0E8 50%,var(--cream) 100%)}
+
+/* ===== BUDGET ===== */
+.budget-section{background:var(--black);color:#fff;text-align:center}
+.budget-section .day-label{color:var(--gold)}
+.budget-section .day-title{color:#fff}
+.budget-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;max-width:780px;width:100%;margin:40px auto 0}
+.budget-card{background:rgba(255,255,255,.06);border:1px solid rgba(245,197,24,.2);border-radius:16px;padding:24px 20px;text-align:center;backdrop-filter:blur(10px);transition:transform .3s,border-color .3s}
+.budget-card:hover{transform:translateY(-4px);border-color:var(--gold)}
+.budget-card .emoji{font-size:32px;margin-bottom:8px}
+.budget-card .label{font-size:13px;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.budget-card .amount{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--gold)}
+.budget-total{margin-top:40px;font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,42px);font-weight:900;color:var(--gold);text-shadow:0 0 40px rgba(245,197,24,.3)}
+.budget-total small{display:block;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:400;color:#999;margin-top:4px}
+
+/* ===== TRANSPORT ===== */
+.transport-section{background:var(--cream)}
+.transport-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;max-width:700px;width:100%;margin:32px auto 0}
+.transport-card{background:#fff;border-radius:16px;padding:24px;text-align:center;border:1px solid rgba(0,0,0,.06);box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.transport-card.recommended{border:2px solid var(--gold);box-shadow:0 4px 20px rgba(245,197,24,.15)}
+.transport-card .emoji{font-size:28px;margin-bottom:8px}
+.transport-card h4{font-size:15px;font-weight:700;margin-bottom:4px}
+.transport-card .cost{color:var(--wine);font-weight:700;font-size:16px}
+.transport-card .detail{font-size:13px;color:var(--warm-gray);margin-top:4px}
+.rec-badge{display:inline-block;background:var(--gold);color:var(--black);font-size:11px;font-weight:700;padding:2px 10px;border-radius:10px;margin-bottom:8px;letter-spacing:1px}
+
+/* ===== LODGING ===== */
+.lodging-section{background:linear-gradient(180deg,var(--cream),#FFF9E6)}
+.lodging-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;max-width:860px;width:100%;margin:32px auto 0}
+.lodging-card{background:#fff;border-radius:16px;padding:28px;border:1px solid rgba(0,0,0,.06);box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.lodging-card h4{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:4px}
+.lodging-card h4 a{color:inherit;text-decoration:none;border-bottom:1.5px dashed var(--gold);transition:color .3s}
+.lodging-card h4 a:hover{color:var(--wine)}
+.lodging-card .stars{color:var(--gold);font-size:14px;margin-bottom:8px}
+.lodging-card ul{list-style:none;padding:0}
+.lodging-card li{font-size:14px;color:var(--warm-gray);padding:3px 0}
+.lodging-card li::before{content:'✦ ';color:var(--gold)}
+.lodging-card .lodging-price{margin-top:12px;font-weight:700;font-size:18px;color:var(--wine)}
+
+/* ===== PACK LIST ===== */
+.pack-section{background:var(--cream);text-align:center}
+.pack-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;max-width:600px;margin:32px auto 0}
+.pack-tag{background:#fff;border:1px solid rgba(245,197,24,.3);border-radius:30px;padding:10px 20px;font-size:14px;font-weight:500;transition:all .3s}
+.pack-tag:hover{background:var(--gold-light);border-color:var(--gold);transform:scale(1.05)}
+
+/* ===== RSVP ===== */
+.rsvp-section{background:linear-gradient(180deg,var(--black),#1a1510);color:#fff;text-align:center}
+.rsvp-title{font-family:'Playfair Display',serif;font-size:clamp(32px,6vw,56px);font-weight:900;margin-bottom:8px}
+.rsvp-title span{color:var(--gold)}
+.rsvp-sub{font-size:16px;color:#aaa;margin-bottom:40px}
+.rsvp-buttons{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
+.btn{padding:18px 48px;border-radius:60px;font-size:16px;font-weight:700;cursor:pointer;border:none;transition:all .3s;text-decoration:none;display:inline-block}
+.btn-yes{background:var(--gold);color:var(--black);box-shadow:0 0 30px rgba(245,197,24,.3)}
+.btn-yes:hover{transform:scale(1.08);box-shadow:0 0 50px rgba(245,197,24,.5)}
+.btn-no{background:transparent;color:#888;border:2px solid #444}
+.btn-no:hover{border-color:var(--wine);color:var(--wine)}
+
+/* ===== MODAL ===== */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
+.modal-overlay.active{display:flex}
+.modal{background:var(--charcoal);border-radius:24px;padding:48px 36px;text-align:center;max-width:420px;width:90%;border:2px solid var(--gold);box-shadow:0 0 80px rgba(245,197,24,.2);animation:modal-in .4s}
+@keyframes modal-in{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+.modal h2{font-family:'Playfair Display',serif;font-size:28px;color:var(--gold);margin-bottom:12px}
+.modal p{color:#ccc;font-size:16px;line-height:1.6;margin-bottom:24px}
+.modal .btn-close{background:var(--gold);color:var(--black);padding:12px 32px;border-radius:30px;border:none;font-weight:700;font-size:14px;cursor:pointer}
+.modal .btn-real{background:var(--gold);color:var(--black);padding:14px 40px;border-radius:30px;border:none;font-weight:700;font-size:15px;cursor:pointer;text-decoration:none;display:inline-block;margin-top:8px}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:600px){
+.section{padding:60px 16px}
+.photo-frame{width:180px;height:180px}
+.timeline::before{left:14px}
+.tl-item{padding-left:44px}
+.tl-dot{left:6px}
+.budget-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ========== HERO ========== -->
+<section class="section hero" id="hero">
+<div class="hero-bg"></div>
+<div class="hero-particles" id="particles"></div>
+<div class="hero-content">
+<div class="hero-tag">Estás invitad@ al</div>
+<div class="photo-frame">
+<img src="carolina.jpg" alt="Carolina" />
+</div>
+<h1 class="hero-title">Cumple de <span>Carolina</span></h1>
+<p class="hero-subtitle">San Miguel de Allende, Guanajuato</p>
+<p class="hero-dates">Viernes 1 — Domingo 3 de Mayo, 2026</p>
+<div class="scroll-hint">
+<span>Desliza</span>
+<div class="scroll-arrow"></div>
+</div>
+</div>
+</section>
+
+<!-- ========== TRANSPORTE ========== -->
+<section class="section transport-section" id="transport">
+<div class="day-header">
+<div class="day-label">Cómo llegar</div>
+<h2 class="day-title">Transporte a <span>SMA</span></h2>
+<p class="day-subtitle">~270 km desde CDMX · ~3 horas</p>
+</div>
+<div class="transport-options">
+<div class="transport-card recommended">
+<div class="rec-badge">RECOMENDADO</div>
+<div class="emoji">🚗</div>
+<h4>Auto propio</h4>
+<div class="cost">$150–250 MXN/persona</div>
+<div class="detail">~3 hrs · Más flexible y económico en grupo. Caseta ~$280 ida.</div>
+</div>
+<div class="transport-card">
+<div class="emoji">🚌</div>
+<h4>ETN / Primera Plus</h4>
+<div class="cost">$350–500 MXN/persona</div>
+<div class="detail">~3.5 hrs · Sale de TAPO o Terminal Poniente. Sin estrés.</div>
+</div>
+<div class="transport-card">
+<div class="emoji">✈️</div>
+<h4>Vuelo a QRO + Uber</h4>
+<div class="cost">$600–900 MXN/persona</div>
+<div class="detail">~2.5 hrs total · Más rápido pero más caro.</div>
+</div>
+</div>
+</section>
+
+<!-- ========== DÍA 1: VIERNES ========== -->
+<section class="section day-section" id="day1">
+<div class="day-header">
+<div class="day-label">Viernes 1 de Mayo</div>
+<h2 class="day-title">Llegada, <span>Viñedo</span> y Primera Noche</h2>
+<p class="day-subtitle">🍷 Día festivo — sal temprano de CDMX</p>
+</div>
+<div class="timeline">
+<div class="tl-item">
+<div class="tl-dot"></div>
+<div class="tl-time">🕐 7:00 AM</div>
+<div class="tl-card">
+<h3><span class="emoji">🥐</span> Desayuno rápido en CDMX</h3>
+<p>Desayuna antes de salir. Guarda el apetito para el viñedo.</p>
+<span class="price">$50–100 MXN</span>
+</div>
+</div>
+<div class="tl-item">
+<div class="tl-dot"></div>
+<div class="tl-time">🕐 12:00 PM</div>
+<div class="tl-card">
+<h3><span class="emoji">🏨</span> Llegada y check-in</h3>
+<p>Dejar maletas, refrescarse y salir directo al viñedo.</p>
+</div>
+</div>
+<div class="tl-item">
+<div class="tl-dot"></div>
+<div class="tl-time">🕐 1:00 – 5:00 PM</div>
+<div class="tl-card">
+<h3><span class="emoji">🍷</span> <a href="https://dosbuhos.com/wine-tour/?srsltid=AfmBOorfYq0I_ecopefQtoWqOQtCQI4HsFsxFWFJkiTNcjXQcwt5dYJP" target="_blank">Tour en Viñedo</a></h3>
+<div class="rating">⭐ 4.5</div>
+<p><strong>Bodega Dos Búhos</strong> — Tour guiado + degustación de 4 vinos + comida al aire libre entre viñedos. Ambiente íntimo y familiar.</p>
+<p class="tip">💡 El tour incluye degustación con maridaje — funciona como COMIDA.</p>
+<span class="price">$600–800 MXN (incluye comida)</span>
+</div>
+</div>
+<div class="tl-item">
+<div class="tl-dot"></div>
+<div class="tl-time">🕐 6:30 PM</div>
+<div class="tl-card">
+<h3><span class="emoji">⛪</span> <a href="https://www.visitsanmiguel.travel/" target="_blank">Paseo por el centro</a></h3>
+<p>La foto obligada con la Parroquia iluminada al atardecer. Todo el centro es peatonal.</p>
+<span class="price">Gratis</span>
+</div>
+</div>
+<div class="tl-item">
+<div class="tl-dot"></div>
+<div class="tl-time">🕐 8:00 PM</div>
+<div class="tl-card">
+<h3><span class="emoji">🌵</span> <a href="https://coyotemezcal.com.mx/nuestra-casa/" target="_blank">Coyote Fuego Mezcalería</a></h3>
+<div class="rating">⭐ 5.0</div>
+<p>Cena ligera + mezcales artesanales. Quesadillas y tacos de arrachera.</p>
+<span class="price">$280–450 MXN</span>
+</div>
+</div>
+<div class="tl-item">
+<div class="tl-dot"></div>
+<div class="tl-time">🕐 10:30 PM</div>
+<div class="tl-card">
+<h3><span class="emoji">🎶</span> <a href="https://www.instagram.com/la_chula_sma/" target="_blank">La Chula Rooftop Bar</a></h3>
+<div class="rating">⭐ 4.1</div>
+<p>Vista nocturna a la Parroquia, DJ y pista de baile. ¡Primera noche de fiesta!</p>
+<span class="price">$250–400 MXN</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ========== DÍA 2: SÁBADO ========== -->
+<section class="section day-section birthday-section" id="day2">
+<div class="day-header">
+<div class="birthday-badge">🎂 ¡CUMPLEAÑOS!</div>
+<div class="day-label">Sábado 2 de Mayo</div>
+<h2 class="day-title">¡Feliz Cumple, <span>Caro!</span></h2>
+<p class="day-subtitle">🎉 Adrenalina, cultura, comida épica y fiesta</p>
+</div>
+<div class="timeline">
+<div class="tl-item">
+<div class="tl-dot"></div>
+<div class="tl-time">🕐 9:00 AM</div>
+<div class="tl-card">
+<h3><span class="emoji">☕</span> <a href="https://www.tripadvisor.com.mx/Restaurant_Review-g151932-d13528218-Reviews-Cafe_Casa_Mexico-San_Miguel_de_Allende_Central_Mexico_and_Gulf_Coast.html" target="_blank">Café Casa México</a></h3>
+<div class="rating">⭐ 4.7</div>
+<p>El mejor desayuno de SMA. Chilaquiles, huevos Veracruz y café de olla. Lleguen temprano, hay fila.</p>
+<span class="price">$120–200 MXN</span>
+</div>
+</div>
+<div class="tl-item">
+<div class="tl-dot"></div>
+<div class="tl-time">🕐 10:30 AM</div>
+<div class="tl-card">
+<h3><span class="emoji">🪂</span> <a href="https://www.parquedeaventurasanmiguel.com/" target="_blank">Parque de Aventuras — Tirolesas</a></h3>
+<div class="rating">⭐ 4.7</div>
+<p>7 tirolesas sobre el cañón. ¡La mejor actividad de SMA para grupos!</p>
+<span class="price">$350–500 MXN</span>
+</div>
+</div>
+<div class="tl-item">
+<div class="tl-dot"></div>
+<div class="tl-time">🕐 1:30 PM</div>
+<div class="tl-card">
+<h3><span class="emoji">☀️</span> <a href="https://www.instagram.com/casadelossoleshotel/" target="_blank">Casa de los Soles</a></h3>
+<div class="rating">⭐ 4.6</div>
+<p>Hotel boutique decorado con soles artesanales. Spot súper fotogénico e instagrameable.</p>
+<span class="price">Gratis</span>
+</div>
+</div>
+<div class="tl-item">
+<div class="tl-dot"></div>
+<div class="tl-time">🕐 2:00 PM</div>
+<div class="tl-card">
+<h3><span class="emoji">🎨</span> Mercado de Artesanías</h3>
+<div class="rating">⭐ 4.6</div>
+<p>Joyería, textiles, talavera, figuras de barro y souvenirs. Camina más adentro para mejores precios. Lleva efectivo.</p>
+<span class="price">$0–500 MXN</span>
+</div>
+</div>
+<div class="tl-item">
+<div class="tl-dot"></div>
+<div class="tl-time">🕐 4:00 PM</div>
+<div class="tl-card">
+<h3><span class="emoji">🌅</span> <a href="https://www.instagram.com/terrazalavista/reels/" target="_blank">Terraza La Vista — Comida de Cumpleaños</a></h3>
+<div class="rating">⭐ 4.7</div>
+<p>Vista panorámica con música en vivo. Empanadas de entrada, T-bone y el legendario lava cake de postre.</p>
+<span class="price">$400–700 MXN</span>
+</div>
+</div>
+<div class="tl-item">
+<div class="tl-dot"></div>
+<div class="tl-time">🕐 8:00 PM</div>
+<div class="tl-card">
+<h3><span class="emoji">🌅</span> <a href="https://www.instagram.com/rooftopatselina/" target="_blank">The Rooftop at Selina — Precopas</a></h3>
+<div class="rating">⭐ 4.4</div>
+<p>Rooftop con vista al centro iluminado. Cócteles de autor y espresso martini.</p>
+<span class="price">$250–400 MXN</span>
+</div>
+</div>
+<div class="tl-item">
+<div class="tl-dot"></div>
+<div class="tl-time">🕐 11:00 PM</div>
+<div class="tl-card">
+<h3><span class="emoji">🕺</span> <a href="https://www.instagram.com/dukesanmiguel/" target="_blank">Duke San Miguel — ¡La Gran Fiesta! 🎂</a></h3>
+<p>¡El lugar para cerrar la noche con todo! ¡Las Mañanitas a medianoche!</p>
+<span class="price">$300–600 MXN</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ========== DÍA 3: DOMINGO ========== -->
+<section class="section day-section day3-section" id="day3">
+<div class="day-header">
+<div class="day-label">Domingo 3 de Mayo</div>
+<h2 class="day-title">Termales, <span>Brunch</span> y Regreso</h2>
+<p class="day-subtitle">♨️ El cierre perfecto del fin de semana</p>
+</div>
+<div class="timeline">
+<div class="tl-item">
+<div class="tl-dot"></div>
+<div class="tl-time">🕐 9:30 AM</div>
+<div class="tl-card">
+<h3><span class="emoji">🥑</span> <a href="https://www.sanmiguelrestaurants.com/international/bani-terraza/" target="_blank">B'ANI Terraza — Brunch</a></h3>
+<div class="rating">⭐ 4.7</div>
+<p>Terraza con vista panorámica. Shrimp tacos, tostadas de ceviche y margaritas de brunch.</p>
+<span class="price">$200–350 MXN</span>
+</div>
+</div>
+<div class="tl-item">
+<div class="tl-dot"></div>
+<div class="tl-time">🕐 11:00 AM</div>
+<div class="tl-card">
+<h3><span class="emoji">♨️</span> Aguas Termales</h3>
+<div class="rating">⭐ 4.2 – 4.4</div>
+<p><strong>La Gruta</strong> — Cueva termal icónica (~$300 MXN) o <strong>Escondido</strong> — 10 albercas, puedes llevar comida (~$250 MXN). A 10 min de SMA. Lleva toalla y bloqueador.</p>
+<p class="tip">💡 Para grupos, Escondido es la mejor opción: llevas comida y tiene más espacio.</p>
+<span class="price">$250–300 MXN</span>
+</div>
+</div>
+<div class="tl-item">
+<div class="tl-dot"></div>
+<div class="tl-time">🕐 2:00 PM</div>
+<div class="tl-card">
+<h3><span class="emoji">🌮</span> El Buen Lugar</h3>
+<div class="rating">⭐ 4.3</div>
+<p>Comida económica y sabrosa antes del regreso. Enchiladas verdes, sopa azteca y molletes.</p>
+<span class="price">$80–150 MXN</span>
+</div>
+</div>
+<div class="tl-item">
+<div class="tl-dot"></div>
+<div class="tl-time">🕐 3:00 PM</div>
+<div class="tl-card">
+<h3><span class="emoji">🚗</span> Regreso a CDMX</h3>
+<p>Llegada estimada 6:00–6:30 PM. ¡No salgan después de las 3:30pm por el tráfico!</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ========== HOSPEDAJE ========== -->
+<section class="section lodging-section" id="lodging">
+<div class="day-header">
+<div class="day-label">Dónde dormir</div>
+<h2 class="day-title">Hospedaje <span>Recomendado</span></h2>
+<p class="day-subtitle">2 noches · Todo a pie del centro</p>
+</div>
+<div class="lodging-grid">
+<div class="lodging-card" style="border:2px solid var(--gold);box-shadow:0 4px 20px rgba(245,197,24,.15)">
+<div style="display:inline-block;background:var(--gold);color:var(--black);font-size:11px;font-weight:700;padding:2px 10px;border-radius:10px;margin-bottom:8px;letter-spacing:1px">RECOMENDADO</div>
+<h4><a href="https://www.airbnb.mx/rooms/52751691?check_in=2026-05-01&check_out=2026-05-03&guests=10&adults=6&s=67&unique_share_id=7735c8ad-4fd9-4a6f-b44d-54ebfdaf1570&source_impression_id=p3_1775613562_P3HehhSg2AACkvjn" target="_blank">🏡 Airbnb — Casa Mexicana de Lujo</a></h4>
+<div class="stars">Terrazas · 8 huéspedes</div>
+<ul>
+<li>3 habitaciones · 4 camas</li>
+<li>3.5 baños</li>
+<li>Casa completa para el grupo</li>
+</ul>
+<div class="lodging-price">~$1,012.50 MXN/persona (2 noches)</div>
+</div>
+<div class="lodging-card">
+<h4>🥇 Concepción Hotel Boutique</h4>
+<div class="stars">⭐ 4.9 · Mejor valorado</div>
+<ul>
+<li>Mero centro, todo a pie</li>
+<li>Alberca y desayuno incluido</li>
+<li>Habitaciones amplias y elegantes</li>
+</ul>
+<div class="lodging-price">~$900–1,200 MXN/persona (2 noches)</div>
+</div>
+<div class="lodging-card">
+<h4>🥈 Cantera 1910 Hotel Boutique</h4>
+<div class="stars">⭐ 4.3 · Mejor precio-calidad</div>
+<ul>
+<li>Rooftop con vista panorámica</li>
+<li>Desayuno incluido</li>
+<li>A pasos del zócalo</li>
+</ul>
+<div class="lodging-price">~$700–900 MXN/persona (2 noches)</div>
+</div>
+</div>
+</section>
+
+<!-- ========== PRESUPUESTO ========== -->
+<section class="section budget-section" id="budget">
+<div class="day-header">
+<div class="day-label">Presupuesto</div>
+<h2 class="day-title">¿Cuánto cuesta?</h2>
+</div>
+<div class="budget-grid">
+<div class="budget-card"><div class="emoji">🏨</div><div class="label">Hospedaje</div><div class="amount">$800–1,200</div></div>
+<div class="budget-card"><div class="emoji">⛽</div><div class="label">Transporte</div><div class="amount">$150–500</div></div>
+<div class="budget-card"><div class="emoji">🍽</div><div class="label">Comidas</div><div class="amount">$1,130–2,000</div></div>
+<div class="budget-card"><div class="emoji">🪂</div><div class="label">Tirolesas</div><div class="amount">$350–500</div></div>
+<div class="budget-card"><div class="emoji">♨️</div><div class="label">Termales</div><div class="amount">$250–300</div></div>
+<div class="budget-card"><div class="emoji">🍹</div><div class="label">Bares / Fiesta</div><div class="amount">$550–1,000</div></div>
+</div>
+<div class="budget-total">
+~$3,500 – $5,500 MXN
+<small>por persona · todo incluido</small>
+</div>
+</section>
+
+<!-- ========== QUÉ LLEVAR ========== -->
+<section class="section pack-section" id="pack">
+<div class="day-header">
+<div class="day-label">No olvides</div>
+<h2 class="day-title">Qué <span>Llevar</span></h2>
+</div>
+<div class="pack-grid">
+<div class="pack-tag">🧥 Ropa de abrigo (12°C noche)</div>
+<div class="pack-tag">👟 Zapatos cómodos (adoquín)</div>
+<div class="pack-tag">🩱 Traje de baño + toalla</div>
+<div class="pack-tag">🩴 Sandalia de agua</div>
+<div class="pack-tag">👟 Calzado deportivo (tirolesas)</div>
+<div class="pack-tag">🧴 Bloqueador solar</div>
+<div class="pack-tag">💵 Efectivo (termales, mercado)</div>
+<div class="pack-tag">🔒 Candado para lockers</div>
+</div>
+</section>
+
+<!-- ========== RSVP ========== -->
+<section class="section rsvp-section" id="rsvp">
+<h2 class="rsvp-title">¿Te <span>apuntas</span>?</h2>
+<p class="rsvp-sub">San Miguel de Allende · 1–3 Mayo 2026</p>
+<div class="rsvp-buttons">
+<a href="https://chat.whatsapp.com/Dohgln57gAC5QFmcYonLvc" target="_blank" class="btn btn-yes">¡Voy! 🎉</a>
+<button class="btn btn-no" id="btnNo">No puedo 😢</button>
+</div>
+</section>
+
+<!-- ========== MODAL ========== -->
+<div class="modal-overlay" id="modal">
+<div class="modal">
+<h2>😂</h2>
+<p>Te equivocaste de botón, no seas culo. 🍑</p>
+<a href="https://chat.whatsapp.com/Dohgln57gAC5QFmcYonLvc" target="_blank" class="btn-real">OK, sí voy 🎉</a>
+<br>
+<button class="btn-close" onclick="document.getElementById('modal').classList.remove('active')" style="margin-top:12px;background:transparent;color:#888;border:1px solid #555">Cerrar</button>
+</div>
+</div>
+
+<script>
+// Particles
+(function(){
+const c=document.getElementById('particles');
+for(let i=0;i<30;i++){
+const p=document.createElement('div');
+p.className='particle';
+p.style.left=Math.random()*100+'%';
+p.style.animationDelay=Math.random()*6+'s';
+p.style.animationDuration=(4+Math.random()*4)+'s';
+c.appendChild(p);
+}
+})();
+
+// Scroll animations
+const observer=new IntersectionObserver((entries)=>{
+entries.forEach(e=>{
+if(e.isIntersecting)e.target.classList.add('visible');
+});
+},{threshold:0.15});
+document.querySelectorAll('.tl-item, .budget-card, .transport-card, .lodging-card, .pack-tag').forEach(el=>observer.observe(el));
+
+// Decline modal
+document.getElementById('btnNo').addEventListener('click',()=>{
+document.getElementById('modal').classList.add('active');
+});
+document.getElementById('modal').addEventListener('click',(e)=>{
+if(e.target===e.currentTarget)e.currentTarget.classList.remove('active');
+});
+</script>
+</body>
+</html>
